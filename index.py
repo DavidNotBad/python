@@ -1,18 +1,24 @@
-from urllib import request, parse
+from pyquery import PyQuery
 
-url = 'http://httpbin.org/post'
-headers = {
-    'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
-    'Host': 'httpbin.org'
-}
-dict = {
-    'name': 'Germey'
-}
-data = bytes(parse.urlencode(dict), encoding='utf8')
-req = request.Request(url=url, data=data, headers=headers, method='POST')
-response = request.urlopen(req)
-print(response.read().decode('utf-8'))
+html = '''
+<div class="wrap">
+    <div id="container">
+        <ul class="list">
+            sdf
+            <a>a</a>
+             <li class="item-0">first item</li>
+             <li class="item-1"><a href="link2.html">second item</a></li>
+             <li class="item-0 active"><a href="link3.html"><span class="bold">third item</span></a></li>
+             <li class="item-1 active"><a href="link4.html">fourth item</a></li>
+             <li class="item-0"><a href="link5.html">fifth item</a></li>
+         </ul>
+     </div>
+ </div>
+'''
+query = PyQuery(html)
+print(query.find('a'))
 
-# 添加header的另外一种方式
-req.add_header('User-Agent', 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)')
+print('_______')
+print(query.children('a'))
+
 
